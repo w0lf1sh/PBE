@@ -19,10 +19,10 @@ class MyWindow(Gtk.Window):
 
         # creating EventBox
         self.evbox = Gtk.EventBox()
-        self.evbox.override_background_color(0, Gdk.RGBA(0.2,0.2,0.8,0.4))
+        self.evbox.override_background_color(0, Gdk.RGBA(0.2,0.2,0.8,1))
 
         # creating Label and adding it to the box
-        self.lbl = Gtk.Label("Please, login with your university card")
+        self.lbl = Gtk.Label('<span foreground="white" size="x-large">Please, login with your university card</span>')
         self.lbl.set_size_request(500, 100)
         self.lbl.set_use_markup(True)
         self.evbox.add(self.lbl)
@@ -46,13 +46,13 @@ class MyWindow(Gtk.Window):
     def uid_read(self):
         rf = Rfid()
         uid = rf.read_uid()
-        GLib.idle_add(self.lbl.set_text,"UID:"+uid)
-        self.evbox.override_background_color(0, Gdk.RGBA(0.8,0,0.2,0.6))
+        self.lbl.set_label('<span foreground="white" size="x-large">UID: '+uid+'</span>')
+        self.evbox.override_background_color(0, Gdk.RGBA(0.8,0,0.2,1))
 
         #creating function that executes when the button is pressed
     def btn_pressed(self, widget):
-        self.lbl.set_label("Please, login with your university card")         
-        self.evbox.override_background_color(0, Gdk.RGBA(0.2,0.2,0.8,0.4))
+        self.lbl.set_label('<span foreground="white" size="x-large">Please, login with your university card</span>')         
+        self.evbox.override_background_color(0, Gdk.RGBA(0.2,0.2,0.8,1))
         thread = threading.Thread(target=self.uid_read)
         thread.start()
 
